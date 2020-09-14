@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RecurMsg</string>
+    <string name="type_number_here">Type Number here</string>
+    <string name="type_text_message">Type text message</string>
 </resources>
