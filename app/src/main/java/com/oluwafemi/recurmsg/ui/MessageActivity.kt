@@ -9,4 +9,8 @@ class MessageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_message)
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return true
+    }
 }
