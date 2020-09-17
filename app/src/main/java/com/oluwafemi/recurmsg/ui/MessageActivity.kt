@@ -7,12 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.oluwafemi.recurmsg.R
 import com.oluwafemi.recurmsg.databinding.ActivityMessageBinding
+import com.oluwafemi.recurmsg.dateAndTime
 
 class MessageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMessageBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_message)
+
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
@@ -21,8 +24,9 @@ class MessageActivity : AppCompatActivity() {
         val recurNumber = binding.times.text
 
         binding.sendBtn.setOnClickListener {
+
             if (!recipientNumber.isNullOrEmpty() && !messageBody.isNullOrEmpty() && !recurNumber.isNullOrEmpty()){
-                Log.i("MESSAGE_LOG", "You want to send '$messageBody' to $recipientNumber, $recurNumber times.")
+                Log.i("MESSAGE_LOG", "${dateAndTime()}: You want to send '$messageBody' to $recipientNumber, $recurNumber times.")
             } else {
                 Toast.makeText(applicationContext, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             }
@@ -30,6 +34,7 @@ class MessageActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return super.onSupportNavigateUp()
+        return true
     }
+
 }

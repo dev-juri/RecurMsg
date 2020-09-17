@@ -45,7 +45,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:inputType="text"
+                android:inputType="textMultiLine"
                 android:padding="16dp"
                 android:hint="@string/type_text_message"
                 android:textAlignment="viewStart"
