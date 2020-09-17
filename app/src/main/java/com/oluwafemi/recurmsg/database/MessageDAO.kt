@@ -1,5 +1,6 @@
 package com.oluwafemi.recurmsg.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -11,6 +12,6 @@ interface MessageDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertNewMessage(messageProperty: MessageProperty)
 
-    @Query("Select * from Messages")
+    @Query("Select * from MessageProperty")
     suspend fun getAllMessages() : List<MessageProperty>
 }

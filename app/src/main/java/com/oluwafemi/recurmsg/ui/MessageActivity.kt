@@ -7,7 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.oluwafemi.recurmsg.R
 import com.oluwafemi.recurmsg.databinding.ActivityMessageBinding
-import com.oluwafemi.recurmsg.dateAndTime
+import com.oluwafemi.recurmsg.model.MessageProperty
+import com.oluwafemi.recurmsg.util.dateAndTime
 
 class MessageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMessageBinding
@@ -26,6 +27,11 @@ class MessageActivity : AppCompatActivity() {
         binding.sendBtn.setOnClickListener {
 
             if (!recipientNumber.isNullOrEmpty() && !messageBody.isNullOrEmpty() && !recurNumber.isNullOrEmpty()){
+                val messageDetails = MessageProperty(0,
+                    messageBody.toString(),
+                    recipientNumber.toString(),
+                    dateAndTime(),
+                    recurNumber.toString())
                 Log.i("MESSAGE_LOG", "${dateAndTime()}: You want to send '$messageBody' to $recipientNumber, $recurNumber times.")
             } else {
                 Toast.makeText(applicationContext, "Please fill in all fields", Toast.LENGTH_SHORT).show()

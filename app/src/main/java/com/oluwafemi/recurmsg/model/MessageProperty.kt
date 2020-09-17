@@ -3,15 +3,12 @@ package com.oluwafemi.recurmsg.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Messages")
+@Entity
 data class MessageProperty (
-    @PrimaryKey
-    val id : Int,
+    @PrimaryKey(autoGenerate = true)
+    val id : Int = 0,
     val messageBody : String,
     val recipient : String,
-    val dateAndTime : String,
-    val totalSendTime : Int,
-    val totalSuccessfullySent : Int
-) {
-    val status = "$totalSuccessfullySent of $totalSendTime sent."
-}
+    val dateAndTime : String ?,
+    val status : String
+)

@@ -12,7 +12,7 @@
         <activity android:name=".ui.MessageActivity"
             android:label="Send Message">
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,4 +1,4 @@
-package com.oluwafemi.recurmsg
+package com.oluwafemi.recurmsg.util
 
 import java.util.*
 
