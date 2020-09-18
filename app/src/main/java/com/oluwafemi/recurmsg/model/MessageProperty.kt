@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class MessageProperty (
     @PrimaryKey(autoGenerate = true)
-    val id : Int = 0,
+    val id : Int,
     val messageBody : String,
     val recipient : String,
     val dateAndTime : String ?,

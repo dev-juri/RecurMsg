@@ -10,7 +10,7 @@ import com.oluwafemi.recurmsg.model.MessageProperty
 @Dao
 interface MessageDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertNewMessage(messageProperty: MessageProperty)
+    fun insertNewMessage(messageProperty: MessageProperty)
 
     @Query("Select * from MessageProperty")
     suspend fun getAllMessages() : List<MessageProperty>
