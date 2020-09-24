@@ -19,6 +19,7 @@ import com.oluwafemi.recurmsg.database.getDatabase
 import com.oluwafemi.recurmsg.databinding.ActivityMessageBinding
 import com.oluwafemi.recurmsg.model.MessageProperty
 import com.oluwafemi.recurmsg.util.dateAndTime
+import com.oluwafemi.recurmsg.viewmodel.MessageActivityViewModel
 
 class MessageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMessageBinding
@@ -26,10 +27,13 @@ class MessageActivity : AppCompatActivity() {
     private lateinit var messageBody: String
     private lateinit var recurNumber: String
     private lateinit var status: String
+    private lateinit var viewModel : MessageActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_message)
+        viewModel = ViewModelProvider(this).get(MessageActivityViewModel::class.java)
+        binding.viewModel = viewModel
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -73,7 +77,8 @@ class MessageActivity : AppCompatActivity() {
                 Snackbar.make(binding.times, "$recurNumber messages pushed", Snackbar.LENGTH_LONG).show()
 
                 val messageDetails = MessageProperty(0, messageBody, recipientNumber, dateAndTime(), status)
-
+                viewModel.startInsert = true
+                viewModel.messageDetails = messageDetails
             }
         }
 
