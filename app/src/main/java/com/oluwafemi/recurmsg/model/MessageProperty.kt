@@ -9,6 +9,6 @@ data class MessageProperty (
     val id : Int,
     val messageBody : String,
     val recipient : String,
-    val dateAndTime : String ?,
+    val dateAndTime : String,
     val status : String
 )

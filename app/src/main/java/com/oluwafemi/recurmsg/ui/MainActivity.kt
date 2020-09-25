@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         binding.viewModel = viewModel
 
-        binding.lifecycleOwner = this
 
         binding.fab.setOnClickListener {
             val intent = Intent(this@MainActivity, MessageActivity::class.java)

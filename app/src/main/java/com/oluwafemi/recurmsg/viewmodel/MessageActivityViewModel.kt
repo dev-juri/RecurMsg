@@ -3,6 +3,7 @@ package com.oluwafemi.recurmsg.viewmodel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import com.oluwafemi.recurmsg.model.MessageProperty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +16,7 @@ class MessageActivityViewModel(application: Application) : AndroidViewModel(appl
 
     lateinit var messageDetails: MessageProperty
 
-    var startInsert = false
+    var startInsert = MutableLiveData<Boolean>()
 
     override fun onCleared() {
         super.onCleared()
@@ -39,9 +40,9 @@ class MessageActivityViewModel(application: Application) : AndroidViewModel(appl
     }
 
     private suspend fun callInsert() {
-        if (startInsert) {
+        if (startInsert.value == true)  {
             insertMessage(messageDetails)
-            startInsert = false
+            startInsert.value = false
         }
     }
 }

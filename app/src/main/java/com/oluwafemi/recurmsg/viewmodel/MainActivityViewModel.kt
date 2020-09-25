@@ -14,7 +14,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val job = SupervisorJob()
     private val coroutineScope = CoroutineScope(job + Dispatchers.Main)
 
-    private lateinit var _messageList: List<MessageProperty>
+    private var _messageList = listOf<MessageProperty>()
     val messageList: List<MessageProperty>
         get() = _messageList
 
@@ -25,8 +25,12 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private fun getAllMessages() {
         coroutineScope.launch {
             val databaseInstance = getDatabase(getApplication()).messageDAO
-            _messageList = databaseInstance.getAllMessages()
-            Log.i("DB_List", _messageList.toString())
+            try {
+                _messageList = databaseInstance.getAllMessages()
+                Log.i("DB_List", _messageList.toString())
+            } catch (e : Exception) {
+                Log.e("DB_List", e.toString())
+            }
         }
     }
 

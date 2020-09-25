@@ -12,10 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.oluwafemi.recurmsg.R
-import com.oluwafemi.recurmsg.database.getDatabase
 import com.oluwafemi.recurmsg.databinding.ActivityMessageBinding
 import com.oluwafemi.recurmsg.model.MessageProperty
 import com.oluwafemi.recurmsg.util.dateAndTime
@@ -74,11 +74,16 @@ class MessageActivity : AppCompatActivity() {
                 binding.textMessage.editText?.setText("")
                 binding.times.setText("")
                 status = "$i of $recurNumber sent"
-                Snackbar.make(binding.times, "$recurNumber messages pushed", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.times, "$recurNumber message(s) pushed to $recipientNumber", Snackbar.LENGTH_LONG).show()
 
                 val messageDetails = MessageProperty(0, messageBody, recipientNumber, dateAndTime(), status)
-                viewModel.startInsert = true
                 viewModel.messageDetails = messageDetails
+
+                viewModel.startInsert.observe(this, Observer {
+                    if(it != true) {
+                        viewModel.startInsert.value = true
+                    }
+                })
             }
         }
 
