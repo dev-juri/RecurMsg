@@ -27,7 +27,7 @@ class MessageActivity : AppCompatActivity() {
     private lateinit var messageBody: String
     private lateinit var recurNumber: String
     private lateinit var status: String
-    private lateinit var viewModel : MessageActivityViewModel
+    private lateinit var viewModel: MessageActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,10 +44,18 @@ class MessageActivity : AppCompatActivity() {
             recurNumber = binding.times.text.toString().trim()
 
             if (recipientNumber.isNotEmpty() && messageBody.isNotEmpty() && recurNumber.isNotEmpty() && recurNumber.toInt() > 0) {
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED){
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.SEND_SMS
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
                     sendSMS()
                 } else {
-                    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.SEND_SMS), SMS_REQUEST_CODE)
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(Manifest.permission.SEND_SMS),
+                        SMS_REQUEST_CODE
+                    )
                 }
             } else {
                 Toast.makeText(
@@ -73,29 +81,40 @@ class MessageActivity : AppCompatActivity() {
                 binding.phoneNumber.editText?.setText("")
                 binding.textMessage.editText?.setText("")
                 binding.times.setText("")
-                status = "$i of $recurNumber sent"
-                Snackbar.make(binding.times, "$recurNumber message(s) pushed to $recipientNumber", Snackbar.LENGTH_LONG).show()
+                status = "$i of $recurNumber pushed"
+                Snackbar.make(
+                    binding.times,
+                    "$recurNumber message(s) pushed to $recipientNumber",
+                    Snackbar.LENGTH_LONG
+                ).show()
 
-                val messageDetails = MessageProperty(0, messageBody, recipientNumber, dateAndTime(), status)
-                viewModel.messageDetails = messageDetails
+                val messageDetails =
+                    MessageProperty(0, messageBody, recipientNumber, dateAndTime(), status)
+                viewModel.messageDetails.value = messageDetails
 
                 viewModel.startInsert.observe(this, Observer {
-                    if(it != true) {
-                        viewModel.startInsert.value = true
-                    }
+                    viewModel.startInsert.value = true
                 })
             }
         }
 
-        Log.i("MESSAGE_LOG", "${dateAndTime()}: You want to send '$messageBody' to $recipientNumber, $recurNumber times.")
+        Log.i(
+            "MESSAGE_LOG",
+            "${dateAndTime()}: You want to send '$messageBody' to $recipientNumber, $recurNumber times."
+        )
 
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             sendSMS()
         } else {
-            Toast.makeText(applicationContext, "SMS failed, please try again", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, "SMS failed, please try again", Toast.LENGTH_LONG)
+                .show()
             return
         }
     }

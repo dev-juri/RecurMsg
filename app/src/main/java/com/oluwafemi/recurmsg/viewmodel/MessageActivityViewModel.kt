@@ -14,7 +14,7 @@ class MessageActivityViewModel(application: Application) : AndroidViewModel(appl
     private val job = SupervisorJob()
     private val coroutineScope = CoroutineScope(job + Dispatchers.Main)
 
-    lateinit var messageDetails: MessageProperty
+     var messageDetails = MutableLiveData<MessageProperty>()
 
     var startInsert = MutableLiveData<Boolean>()
 
@@ -41,8 +41,9 @@ class MessageActivityViewModel(application: Application) : AndroidViewModel(appl
 
     private suspend fun callInsert() {
         if (startInsert.value == true)  {
-            insertMessage(messageDetails)
-            startInsert.value = false
+            Log.i("DB_VM", startInsert.toString())
+            insertMessage(messageDetails.value!!)
         }
+        startInsert.value = false
     }
 }
