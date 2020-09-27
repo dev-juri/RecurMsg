@@ -3,7 +3,7 @@ package com.oluwafemi.recurmsg.viewmodel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
+import com.oluwafemi.recurmsg.database.getDatabase
 import com.oluwafemi.recurmsg.model.MessageProperty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,38 +12,24 @@ import kotlinx.coroutines.launch
 
 class MessageActivityViewModel(application: Application) : AndroidViewModel(application) {
     private val job = SupervisorJob()
-    private val coroutineScope = CoroutineScope(job + Dispatchers.Main)
-
-     var messageDetails = MutableLiveData<MessageProperty>()
-
-    var startInsert = MutableLiveData<Boolean>()
+    val coroutineScope = CoroutineScope(job + Dispatchers.Default)
 
     override fun onCleared() {
         super.onCleared()
         job.cancel()
     }
 
-    init {
-        coroutineScope.launch {
-            callInsert()
-        }
-    }
 
-    private suspend fun insertMessage(messageDetails: MessageProperty) {
+    fun insertMessage(messageDetails: MessageProperty) {
         coroutineScope.launch {
+            val databaseInstance = getDatabase(getApplication()).messageDAO
             try {
-                insertMessage(messageDetails)
+                databaseInstance.insertNewMessage(messageDetails)
             } catch (e: Exception) {
                 Log.e("DB_Insert_Log", e.toString())
             }
         }
     }
 
-    private suspend fun callInsert() {
-        if (startInsert.value == true)  {
-            Log.i("DB_VM", startInsert.toString())
-            insertMessage(messageDetails.value!!)
-        }
-        startInsert.value = false
-    }
+
 }

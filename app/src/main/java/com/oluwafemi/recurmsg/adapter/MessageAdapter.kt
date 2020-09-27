@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.oluwafemi.recurmsg.databinding.MessageListBinding
 import com.oluwafemi.recurmsg.model.MessageProperty
 
-class MessageAdapter() :
+class MessageAdapter :
     ListAdapter<MessageProperty, MessageAdapter.MessageViewHolder>(DiffUtilCallback) {
     companion object DiffUtilCallback : DiffUtil.ItemCallback<MessageProperty>() {
         override fun areItemsTheSame(oldItem: MessageProperty, newItem: MessageProperty): Boolean {

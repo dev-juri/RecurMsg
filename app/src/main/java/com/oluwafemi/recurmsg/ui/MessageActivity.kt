@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.oluwafemi.recurmsg.R
@@ -20,6 +19,7 @@ import com.oluwafemi.recurmsg.databinding.ActivityMessageBinding
 import com.oluwafemi.recurmsg.model.MessageProperty
 import com.oluwafemi.recurmsg.util.dateAndTime
 import com.oluwafemi.recurmsg.viewmodel.MessageActivityViewModel
+import kotlinx.coroutines.launch
 
 class MessageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMessageBinding
@@ -90,11 +90,10 @@ class MessageActivity : AppCompatActivity() {
 
                 val messageDetails =
                     MessageProperty(0, messageBody, recipientNumber, dateAndTime(), status)
-                viewModel.messageDetails.value = messageDetails
 
-                viewModel.startInsert.observe(this, Observer {
-                    viewModel.startInsert.value = true
-                })
+                viewModel.coroutineScope.launch {
+                    viewModel.insertMessage(messageDetails)
+                }
             }
         }
 
@@ -113,7 +112,11 @@ class MessageActivity : AppCompatActivity() {
         if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             sendSMS()
         } else {
-            Toast.makeText(applicationContext, "SMS failed, please try again", Toast.LENGTH_LONG)
+            Toast.makeText(
+                applicationContext,
+                "SMS failed, please try again",
+                Toast.LENGTH_LONG
+            )
                 .show()
             return
         }
