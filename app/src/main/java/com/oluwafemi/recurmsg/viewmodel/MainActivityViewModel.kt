@@ -3,6 +3,8 @@ package com.oluwafemi.recurmsg.viewmodel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.oluwafemi.recurmsg.database.getDatabase
 import com.oluwafemi.recurmsg.model.MessageProperty
 import kotlinx.coroutines.CoroutineScope
@@ -14,9 +16,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val job = SupervisorJob()
     private val coroutineScope = CoroutineScope(job + Dispatchers.Main)
 
-    private var _messageList = listOf<MessageProperty>()
-    val messageList: List<MessageProperty>
-        get() = _messageList
+    var messageList = listOf<MessageProperty>()
 
     init {
         getAllMessages()
@@ -26,8 +26,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         coroutineScope.launch {
             val databaseInstance = getDatabase(getApplication()).messageDAO
             try {
-                _messageList = databaseInstance.getAllMessages()
-                Log.i("DB_List", _messageList.toString())
+                messageList = databaseInstance.getAllMessages()
+                Log.i("DB_List", messageList.toString())
             } catch (e : Exception) {
                 Log.e("DB_List", e.toString())
             }

@@ -15,9 +15,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/message_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             tools:listitem="@layout/message_list"
-            app:list="@{viewModel.messageList}"
+            messageBinding="@{viewModel.messageList}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
