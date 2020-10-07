@@ -12,6 +12,6 @@ interface MessageDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertNewMessage(vararg messageProperty: MessageProperty)
 
-    @Query("select * from MessageProperty")
+    @Query("SELECT * FROM messages")
     suspend fun getAllMessages() : List<MessageProperty>
 }
