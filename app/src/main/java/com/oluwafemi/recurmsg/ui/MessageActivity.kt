@@ -81,7 +81,7 @@ class MessageActivity : AppCompatActivity() {
                 binding.phoneNumber.editText?.setText("")
                 binding.textMessage.editText?.setText("")
                 binding.times.setText("")
-                status = "$i of $recurNumber pushed"
+                status = "$i pushed"
                 Snackbar.make(
                     binding.times,
                     "$recurNumber message(s) pushed to $recipientNumber",

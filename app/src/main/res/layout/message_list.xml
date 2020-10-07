@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="messageProp"
             type="com.oluwafemi.recurmsg.model.MessageProperty" />
@@ -12,14 +13,14 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        app:cardPreventCornerOverlap="false"
-        android:layout_margin="8dp">
+        app:cardElevation="5dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/recipient"
@@ -27,9 +28,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:text="@{messageProp.recipient}"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:text="@{messageProp.recipient}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -41,9 +42,8 @@
                 style="?attr/textAppearanceHeadline1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
                 android:text="@{messageProp.messageBody}"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recipient"
                 tools:text="This is a message, I want it sent in 50 minutes to Mr A, I hope He gets it 20times. Thank you very much, I appreciate" />
@@ -63,12 +63,12 @@
                 tools:text="15th September, 2020, 8:26pm" />
 
             <TextView
-                android:layout_marginTop="8dp"
                 android:id="@+id/delivery"
                 style="?attr/textAppearanceSubtitle2"
                 android:layout_width="wrap_content"
-                android:text="@{messageProp.status}"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{messageProp.status}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintTop_toBottomOf="@id/message"

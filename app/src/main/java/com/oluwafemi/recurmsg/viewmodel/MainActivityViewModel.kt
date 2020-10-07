@@ -24,7 +24,6 @@ class MainActivityViewModel(private val database: MessageDAO, application: Appli
     init {
         coroutineScope.launch {
             _messageList.value = database.getAllMessages()
-            Log.i("DB_LIST", _messageList.toString())
         }
     }
 

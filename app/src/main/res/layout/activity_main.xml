@@ -3,33 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="viewModel"
-            type="com.oluwafemi.recurmsg.viewmodel.MainActivityViewModel" />
-    </data>
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/message_recycler_view"
-            app:messageBinding="@{viewModel.messageList}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
             tools:listitem="@layout/message_list"
-            android:layout_gravity="start" />
-
-        <TextView
-            android:textSize="14sp"
-            android:id="@+id/message_list"
-            tools:text="Heelooooooooooooooooooooooooooooo"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.messageList.toString()}"/>
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
