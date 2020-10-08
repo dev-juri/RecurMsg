@@ -56,7 +56,7 @@
                 android:hint="@string/type_text_message"
                 android:textAlignment="viewStart"
                 android:gravity="start"
-                android:maxLength="50" />
+                android:maxLength="100" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <EditText
